@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block main%}
+<div class="container">
+  <div class="row">
+    {% for sc in sport_center%}
+    <div class="ckb">
+      <label>
+        <input type="checkbox" value="1"><span>{{ sc }}</span>
+      </label>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="card row">
+    <div class="card-header">Searching Result</div>
+    <div class="card-body" style="height:200px;">Court Avaliable</div>
+    <div class="card-footer">Update time: xx:xx:xx</div>
+  </div>
+
+</div>
+{% endblock %}
