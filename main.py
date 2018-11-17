@@ -6,7 +6,20 @@ app.config.from_object(config)
 
 @app.route("/")
 def index():
-    sport_center = ['文山', '大安', '大同', '松山', '信義', '內湖', '士林', '萬華', '南港', '中正', '北投', '中山']
+    sport_center = [
+        {'cn':'文山', 'en':'ws'}, 
+        {'cn':'大安', 'en':'da'}, 
+        # {'cn':'大同', 'en':'dt'}, 
+        {'cn':'松山', 'en':'ss'}, 
+        {'cn':'信義', 'en':'xy'}, 
+        {'cn':'內湖', 'en':'nh'}, 
+        {'cn':'士林', 'en':'sl'}, 
+        {'cn':'萬華', 'en':'wh'}, 
+        {'cn':'南港', 'en':'ng'}, 
+        {'cn':'中正', 'en':'jj'}, 
+        {'cn':'北投', 'en':'bt'}, 
+        {'cn':'中山', 'en':'cs'}, 
+    ]
     return render_template('index.html', sport_center=sport_center)
 
 @app.route("/court/<sc>")

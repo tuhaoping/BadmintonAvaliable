@@ -2,39 +2,45 @@
   background-color: transparent;
   background-image: none;
 
-  border: 1px solid transparent;
+  border: 1.5px solid transparent;
   border-color: #007bff;
-  box-shadow: 0 5px 15px rgba(0,0,0,.05), 0 4px 10px rgba(0,123,255,.25);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .05), 0 4px 10px rgba(0, 123, 255, .25);
 
   color: #007bff;
 
-  margin:4px;
-  border-radius:4px;
-  overflow:auto;
-  float:left;
-  transition: all 250ms cubic-bezier(.27,.01,.38,1.06);
+  margin: 2.5px;
+  border-radius: 4px;
+  overflow: auto;
+  float: left;
+  transition: all 250ms cubic-bezier(.27, .01, .38, 1.06);
 
 }
 
-.ckb:hover, .ckb input:checked + span  {
-   background:#007bff;
-   color: #fff;
+.ckb:hover,
+.ckb input:checked+span {
+  background: #007bff;
+  color: #fff;
+}
+
+.ckb.disabled {
+  pointer-events: none;
+  opacity: 0.3;
 }
 
 .ckb label {
-   float:left;
-   width:4.0em;
-   margin: 0;
-   cursor: pointer;
-  }
+  float: left;
+  width: 4.0em;
+  margin: 0;
+  border-radius: 2px;
+  cursor: pointer;
+}
 
 .ckb label span {
-   text-align:center;
-   padding:3px 0px;
-   display:block;
+  text-align: center;
+  padding: 3px 0px;
+  display: block;
 }
 
 .ckb label input {
-   position:absolute;
-   top:-20px;
+  display: none;
 }

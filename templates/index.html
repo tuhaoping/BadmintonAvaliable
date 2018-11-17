@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
 
-{% block main%}
+{% block main %}
 <div class="container">
   <div class="row">
-    {% for sc in sport_center%}
     <div class="ckb">
       <label>
-        <input type="checkbox" value="1"><span>{{ sc }}</span>
+        <input id="sc-chooseall" type="checkbox" value="all"><span>全選</span>
+      </label>
+    </div>
+    {% for sc in sport_center%}
+    <div class="ckb sc-item">
+      <label>
+        <input type="checkbox" value="{{ sc.en }}" name="sclist"><span>{{ sc.cn }}</span>
       </label>
     </div>
     {% endfor %}
@@ -18,4 +23,8 @@
   </div>
 
 </div>
+{% endblock %}
+
+{% block script %}
+<script src="/static/js/index.js"></script>
 {% endblock %}
