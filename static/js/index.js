@@ -5,3 +5,10 @@ $("#sc-chooseall").click(function(){
   else
     $(".ckb.sc-item").removeClass('disabled').find('input').prop('disabled', false)
 })
+
+$('#datepicker').datepicker({
+  autoclose: true,
+  todayHighlight: true,
+  format: 'yyyy / mm / dd',
+  startDate: '+1d',
+});

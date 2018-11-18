@@ -1,26 +1,39 @@
 {% extends 'base.html' %}
 
 {% block main %}
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="ckb">
-      <label>
-        <input id="sc-chooseall" type="checkbox" value="all"><span>全選</span>
-      </label>
+    <div class="col-8 mx-auto">
+      <div class="form-group row">
+        <div class="col-2 my-auto font-weight-bold" style="font-size:1.3rem;">運動中心</div>
+        <div class="col-10">
+          <div class="ckb">
+            <label>
+              <input id="sc-chooseall" type="checkbox" value="all"><span>全選</span>
+            </label>
+          </div>
+          {% for sc in sport_center%}
+          <div class="ckb sc-item">
+            <label>
+              <input type="checkbox" value="{{ sc.id }}" name="sclist"><span>{{ sc.name }}</span>
+            </label>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-2 my-auto font-weight-bold" style="font-size:1.3rem;">日期</div>
+        <div class="col-10"><input type="text" class="form-control col-2" id="datepicker"></div>
+      </div>
+      <div class="card row">
+        <div class="card-header">Searching Result</div>
+        <div class="card-body" style="height:200px;">Court Avaliable</div>
+        <div class="card-footer">Update time: xx:xx:xx</div>
+      </div>
     </div>
-    {% for sc in sport_center%}
-    <div class="ckb sc-item">
-      <label>
-        <input type="checkbox" value="{{ sc.en }}" name="sclist"><span>{{ sc.cn }}</span>
-      </label>
-    </div>
-    {% endfor %}
   </div>
-  <div class="card row">
-    <div class="card-header">Searching Result</div>
-    <div class="card-body" style="height:200px;">Court Avaliable</div>
-    <div class="card-footer">Update time: xx:xx:xx</div>
-  </div>
+
+  
 
 </div>
 {% endblock %}

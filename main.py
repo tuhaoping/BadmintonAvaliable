@@ -7,18 +7,18 @@ app.config.from_object(config)
 @app.route("/")
 def index():
     sport_center = [
-        {'cn':'文山', 'en':'ws'}, 
-        {'cn':'大安', 'en':'da'}, 
-        # {'cn':'大同', 'en':'dt'}, 
-        {'cn':'松山', 'en':'ss'}, 
-        {'cn':'信義', 'en':'xy'}, 
-        {'cn':'內湖', 'en':'nh'}, 
-        {'cn':'士林', 'en':'sl'}, 
-        {'cn':'萬華', 'en':'wh'}, 
-        {'cn':'南港', 'en':'ng'}, 
-        {'cn':'中正', 'en':'jj'}, 
-        {'cn':'北投', 'en':'bt'}, 
-        {'cn':'中山', 'en':'cs'}, 
+        {'id':'ws', 'name':'文山'}, 
+        {'id':'da', 'name':'大安'}, 
+        # {'id':'dt', 'name':'大同'}, 
+        {'id':'ss', 'name':'松山'}, 
+        {'id':'xy', 'name':'信義'}, 
+        {'id':'nh', 'name':'內湖'}, 
+        {'id':'sl', 'name':'士林'}, 
+        {'id':'wh', 'name':'萬華'}, 
+        {'id':'ng', 'name':'南港'}, 
+        {'id':'jj', 'name':'中正'}, 
+        {'id':'bt', 'name':'北投'}, 
+        {'id':'cs', 'name':'中山'}, 
     ]
     return render_template('index.html', sport_center=sport_center)
 
