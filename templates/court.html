@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+<div class="container-fluid">
+  <div class="col-8 mx-auto">
+    <div class="card">
+      <div class="card-header">Searching Result</div>
+      <div class="card-body text-center">
+        <p>日期: {{ date }}</p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>運動中心</th>
+              <th>場地</th>
+              <th>時段</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for msg in messages %}
+            <tr>
+            {% if msg[0]==1 %}
+              <td>{{ msg[1] }}</td>
+              <td colspan="2">不提供預約</td>
+            {% elif msg[0]==2 %}
+              <td>{{ msg[1] }}</td>
+              <td colspan="2">無場地可預約</td>
+            {% else %}
+              <td>{{ msg[0] }}</td>
+              <td>{{ msg[1] }}</td>
+              <td>{{ msg[2] }}-{{ msg[3] }}</td>
+            {% endif %}
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer">Update time: xx:xx:xx</div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
