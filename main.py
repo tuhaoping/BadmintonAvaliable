@@ -2,26 +2,29 @@ from flask import Flask, render_template, request
 import config
 import requests
 import time
+import json
 
 app = Flask(__name__)
 app.config.from_object(config)
 
+class SportCenter(object):
+    '''a Sport Center object'''
+    def __init__(self, sc_id, sc_data):
+        self.sc_id     = sc_id
+        self.name      = sc_data['name']
+        self.address   = sc_data['address']
+        self.phone     = sc_data['phone']
+        self.website   = sc_data['website']
+        self.avaliable = sc_data['avaliable']
+
+
+
 @app.route("/")
 def index():
-    sport_center = {
-        'ws':{'name':'文山'}, 
-        'da':{'name':'大安'}, 
-        # 'dt':{'name':'大同'}, 
-        'ss':{'name':'松山'}, 
-        'xy':{'name':'信義'}, 
-        'nh':{'name':'內湖'}, 
-        'sl':{'name':'士林'}, 
-        'wh':{'name':'萬華'}, 
-        'ng':{'name':'南港'}, 
-        'jj':{'name':'中正'}, 
-        'bt':{'name':'北投'}, 
-        'cs':{'name':'中山'}, 
-    }
+    with open('./static/data/sc_info.json', 'r', encoding='utf8') as f:
+        sc_info = json.load(f)
+    sport_center = filter(lambda obj: obj.avaliable == True, [SportCenter(sc_id, sc_data) for sc_id, sc_data in sc_info.items()])
+    
     return render_template('index.html', sport_center=sport_center)
 
 @app.route("/court", methods=['post'])

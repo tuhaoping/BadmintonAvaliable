@@ -1,0 +1,86 @@
+{
+  "ws": {
+    "name": "文山",
+    "address": "臺北市文山區興隆路三段222號",
+    "phone": "2230-8268",
+    "website": "http://wssc.cyc.org.tw/",
+    "avaliable": true
+  },
+  "da": {
+    "name": "大安",
+    "address": "臺北市大安區辛亥路3段55號",
+    "phone": "2377-0300",
+    "website": "http://dasc.cyc.org.tw/",
+    "avaliable": true
+  },
+  "dt": {
+    "name": "大同",
+    "address": "臺北市大同區大龍街51號",
+    "phone": null,
+    "website": null,
+    "avaliable": false
+  },
+  "ss": {
+    "name": "松山",
+    "address": "臺北市松山區敦化北路1號",
+    "phone": "6617-6789",
+    "website": "http://sssc.com.tw/",
+    "avaliable": true
+  },
+  "xy": {
+    "name": "信義",
+    "address": "臺北市信義區松勤街100號",
+    "phone": "8786-1911",
+    "website": "http://xysc.cyc.org.tw/",
+    "avaliable": true
+  },
+  "nh": {
+    "name": "內湖",
+    "address": "臺北市內湖區洲子街12號",
+    "phone": "2656-2869",
+    "website": "https://nhsc.cyc.org.tw/",
+    "avaliable": true
+  },
+  "sl": {
+    "name": "士林",
+    "address": "臺北市士林區士商路1號",
+    "phone": "2880-6066",
+    "website": "http://www.slsc-taipei.org/",
+    "avaliable": true
+  },
+  "wh": {
+    "name": "萬華",
+    "address": "臺北市萬華區西寧南路6-1號",
+    "phone": "2375-9900",
+    "website": "http://whsc.com.tw/",
+    "avaliable": true
+  },
+  "ng": {
+    "name": "南港",
+    "address": "臺北市南港區玉成街69號",
+    "phone": "2653-2279",
+    "website": "http://ngsc.cyc.org.tw/",
+    "avaliable": true
+  },
+  "jj": {
+    "name": "中正",
+    "address": "臺北市中正區信義路1段1號",
+    "phone": "2396-3358",
+    "website": "http://www.tpejjsports.com.tw/",
+    "avaliable": true
+  },
+  "bt": {
+    "name": "北投",
+    "address": "臺北市北投區石牌路一段39巷100號",
+    "phone": "2820-2880",
+    "website": "http://www.btsport.org.tw/",
+    "avaliable": true
+  },
+  "cs": {
+    "name": "中山",
+    "address": "臺北市中山區中山北路二段44巷2號",
+    "phone": "2581-1060",
+    "website": "http://cssc.cyc.org.tw/",
+    "avaliable": true
+  }
+}

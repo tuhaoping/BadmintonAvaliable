@@ -13,10 +13,10 @@
                 <input id="sc-chooseall" type="checkbox" value="all" name="sclist"><span>全選</span>
               </label>
             </div>
-            {% for id,sc in sport_center.items() %}
+            {% for sc in sport_center %}
             <div class="ckb sc-item">
               <label>
-                <input type="checkbox" value="{{ id }}" name="sclist"><span>{{ sc.name }}</span>
+                <input type="checkbox" value="{{ sc.sc_id }}" name="sclist"><span>{{ sc.name }}</span>
               </label>
             </div>
             {% endfor %}
