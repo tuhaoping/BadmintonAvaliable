@@ -9,21 +9,26 @@ app.config.from_object(config)
 
 class SportCenter(object):
     '''a Sport Center object'''
-    def __init__(self, sc_id, sc_data):
-        self.sc_id     = sc_id
-        self.name      = sc_data['name']
-        self.address   = sc_data['address']
-        self.phone     = sc_data['phone']
-        self.website   = sc_data['website']
-        self.avaliable = sc_data['avaliable']
+    with open('./static/data/sc_info.json', 'r', encoding='utf8') as f:
+        sc_info = json.load(f)
 
+    def __init__(self, sc_id):
+        self.sc_id     = sc_id
+        self.name      = self.sc_info[sc_id]['name']
+        self.address   = self.sc_info[sc_id]['address']
+        self.phone     = self.sc_info[sc_id]['phone']
+        self.website   = self.sc_info[sc_id]['website']
+        self.avaliable = self.sc_info[sc_id]['avaliable']
+
+    @classmethod
+    def all_sport_center(self):
+        return self.sc_info
 
 
 @app.route("/")
 def index():
-    with open('./static/data/sc_info.json', 'r', encoding='utf8') as f:
-        sc_info = json.load(f)
-    sport_center = filter(lambda obj: obj.avaliable == True, [SportCenter(sc_id, sc_data) for sc_id, sc_data in sc_info.items()])
+    
+    sport_center = filter(lambda obj: obj['avaliable'] == True, [sc_data for sc_id, sc_data in SportCenter.all_sport_center().items()])
     
     return render_template('index.html', sport_center=sport_center)
 
