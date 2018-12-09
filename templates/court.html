@@ -17,20 +17,22 @@
             </tr>
           </thead>
           <tbody>
-          {% for msg in messages %}
-            <tr>
-            {% if msg[0]==1 %}
-              <td>{{ msg[1] }}</td>
-              <td colspan="2">不提供預約</td>
-            {% elif msg[0]==2 %}
-              <td>{{ msg[1] }}</td>
-              <td colspan="2">無場地可預約</td>
-            {% else %}
-              <td>{{ msg[0] }}</td>
-              <td>{{ msg[1] }}</td>
-              <td>{{ msg[2] }}-{{ msg[3] }}</td>
-            {% endif %}
-            </tr>
+          {% for sc in sportcenter %}
+            {% for msg in sc.court_avaliable %}
+              <tr>
+              {% if msg[0]==1 %}
+                <td>{{ msg[1] }}</td>
+                <td colspan="2">不提供預約</td>
+              {% elif msg[0]==2 %}
+                <td>{{ msg[1] }}</td>
+                <td colspan="2">無場地可預約</td>
+              {% else %}
+                <td>{{ msg[0] }}</td>
+                <td>{{ msg[1] }}</td>
+                <td>{{ msg[2] }}-{{ msg[3] }}</td>
+              {% endif %}
+              </tr>
+            {% endfor %}
           {% endfor %}
           </tbody>
         </table>

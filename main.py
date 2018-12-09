@@ -9,6 +9,7 @@ app.config.from_object(config)
 
 class SportCenter(object):
     '''a Sport Center object'''
+    crawler_url = "http://booking.tpsc.sporetrofit.com/Location/findAllowBookingList?LID={}SC&categoryId=Badminton&useDate={}"
     with open('./static/data/sc_info.json', 'r', encoding='utf8') as f:
         sc_info = json.load(f)
 
@@ -19,48 +20,64 @@ class SportCenter(object):
         self.phone     = self.sc_info[sc_id]['phone']
         self.website   = self.sc_info[sc_id]['website']
         self.avaliable = self.sc_info[sc_id]['avaliable']
+        self.court_avaliable = []
+
+    @property
+    def info(self):
+        return [
+            self.sc_id,
+            self.name,
+            self.address,
+            self.phone,
+            self.website,
+            self.avaliable,
+            self.court_avaliable,
+        ]
 
     @classmethod
     def all_sport_center(self):
         return self.sc_info
 
-
-@app.route("/")
-def index():
-    
-    sport_center = filter(lambda obj: obj['avaliable'] == True, [sc_data for sc_id, sc_data in SportCenter.all_sport_center().items()])
-    
-    return render_template('index.html', sport_center=sport_center)
-
-@app.route("/court", methods=['post'])
-def court():
-    sc = request.form.getlist('sclist')
-    date = request.form.get('date').replace(' / ', '-')
-    msg = []
-    for sportcenter in sc:
-        url = "http://booking.tpsc.sporetrofit.com/Location/findAllowBookingList?LID={}SC&categoryId=Badminton&useDate={}"
-        url = url.format(sportcenter.upper(), date)
+    def avaliable_time_crawler(self, date):
+        url = self.crawler_url.format(self.sc_id.upper(), date)
         payload = {
             "nd": time.time(),
             "rows": "100",
             "page": "1",
         }
+        data = requests.post(url=url, data=payload).json()
 
-        res = requests.post(url=url, data=payload)
-        # print(res)
-        data = res.json()
-        # print(data)
         if 'errorMsg' in data:
-            msg.append([1, sportcenter])
+            self.court_avaliable.append([1, self.sc_id])
         else:
             avaliable = list(filter(lambda x:x['allowBooking'] == 'Y', data['rows']))
             if avaliable:
                 for row in avaliable:
-                    msg.append([row['LIDName'], row['LSIDName'], row['StartTime']['Hours'], row['EndTime']['Hours']])
+                    self.court_avaliable.append([row['LIDName'], row['LSIDName'], row['StartTime']['Hours'], row['EndTime']['Hours']])
             else:
-                msg.append([2, sportcenter])
+                self.court_avaliable.append([2, self.sc_id])
+
+        return self
+
+
+@app.route("/")
+def index():
+    
+    sport_center = filter(lambda obj: obj['avaliable'] == True, 
+        [sc_data for sc_id, sc_data in SportCenter.all_sport_center().items()]
+    )
+    
+    return render_template('index.html', sport_center=sport_center)
+
+@app.route("/court", methods=['post'])
+def court():
+    sc_query = request.form.getlist('sclist')
+    date = request.form.get('date').replace(' / ', '-')
+    sc = []
+    for sc_id in sc_query:
+        sc.append(SportCenter(sc_id).avaliable_time_crawler(date))
         
-    return render_template('court.html', messages=msg, date=date)
+    return render_template('court.html', sportcenter=sc, date=date)
 
 if __name__ == "__main__":
     app.run()
