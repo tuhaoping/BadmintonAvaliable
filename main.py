@@ -1,8 +1,11 @@
 from flask import Flask, render_template, request
 import config
+import json
 import requests
 import time
-import json
+import threading
+from queue import Queue
+
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -46,7 +49,6 @@ class SportCenter(object):
             "page": "1",
         }
         data = requests.post(url=url, data=payload).json()
-
         if 'errorMsg' in data:
             self.court_avaliable.append([1, self.sc_id])
         else:
@@ -59,6 +61,8 @@ class SportCenter(object):
 
         return self
 
+def crawler_threading_task(obj, date):
+    obj.avaliable_time_crawler(date)
 
 @app.route("/")
 def index():
@@ -73,11 +77,17 @@ def index():
 def court():
     sc_query = request.form.getlist('sclist')
     date = request.form.get('date').replace(' / ', '-')
-    sc = []
-    for sc_id in sc_query:
-        sc.append(SportCenter(sc_id).avaliable_time_crawler(date))
-        
-    return render_template('court.html', sportcenter=sc, date=date)
+    
+    sport_center = [SportCenter(sc_id) for sc_id in sc_query]
+    threads = []
+    for sc in sport_center:
+        t = threading.Thread(target=crawler_threading_task, args=(sc, date))        
+        threads.append(t)
+        t.start()
+    for t in threads:
+        t.join()
+
+    return render_template('court.html', sportcenter=sport_center, date=date)
 
 if __name__ == "__main__":
     app.run()
