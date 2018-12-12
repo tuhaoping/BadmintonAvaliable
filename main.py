@@ -76,6 +76,8 @@ def index():
 @app.route("/court", methods=['post'])
 def court():
     sc_query = request.form.getlist('sclist')
+    if sc_query[0] == "all":
+        sc_query = SportCenter.all_sport_center().keys()
     date = request.form.get('date').replace(' / ', '-')
     
     sport_center = [SportCenter(sc_id) for sc_id in sc_query]
