@@ -61,9 +61,6 @@ class SportCenter(object):
 
         return self
 
-def crawler_threading_task(obj, date):
-    obj.avaliable_time_crawler(date)
-
 @app.route("/")
 def index():
     
@@ -83,7 +80,7 @@ def court():
     sport_center = [SportCenter(sc_id) for sc_id in sc_query]
     threads = []
     for sc in sport_center:
-        t = threading.Thread(target=crawler_threading_task, args=(sc, date))        
+        t = threading.Thread(target=SportCenter.avaliable_time_crawler, args=(sc, date))        
         threads.append(t)
         t.start()
     for t in threads:
